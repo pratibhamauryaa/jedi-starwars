@@ -2,26 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+/* Example color variables (optional) */
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* 
+  Replace these URLs with your own starfield images in /public/images. 
+  This example has 3 distinct star layers for a subtle parallax effect.
+*/
+.stars,
+.stars2,
+.stars3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-repeat: repeat;
+  background-position: center top;
+  background-size: cover;
+}
+
+.stars {
+  background-image: url('/images/3d-hyperspace-background-with-warp-tunnel-effect.jpg');
+  animation: animateStars 120s linear infinite;
+}
+
+.stars2 {
+  background-image: url('/images/stars-layer2.png');
+  animation: animateStars 90s linear infinite;
+  opacity: 0.6;
+}
+
+.stars3 {
+  background-image: url('/images/stars-layer3.png');
+  animation: animateStars 60s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes animateStars {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-2000px);
+  }
 }
