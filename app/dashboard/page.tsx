@@ -9,6 +9,7 @@ import StarshipTable from '@/components/StarshipTable';
 
 import { useStarships } from '@/hooks/useStarships';
 import { selectedStarshipsAtom, Starship } from '@/store/starships';
+import StarshipComparison from '@/components/StarshipComparison';
 
 
 export default function DashboardPage() {
@@ -22,7 +23,7 @@ export default function DashboardPage() {
   
   // Global store for selected starships
   const [selectedStarships, setSelectedStarships] = useAtom(selectedStarshipsAtom);
-
+  const [isComparisonOpen, setIsComparisonOpen] = useState(false);
   // Use our updated hook with debounced search + manual infinite scrolling
   const {
     starships,        // combined array of starships from all pages
@@ -104,12 +105,20 @@ export default function DashboardPage() {
       {/* Currently selected starships */}
       <div className="mt-4">
         <p>Selected Starships ({selectedStarships.length}):</p>
-        <ul>
-          {selectedStarships.map((s) => (
-            <li key={s.url}>{s.name}</li>
-          ))}
-        </ul>
+        {selectedStarships.length > 0 && (
+          <button
+            onClick={() => setIsComparisonOpen(true)}
+            className="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-300 transition-colors"
+          >
+            Compare Selected ({selectedStarships.length})
+          </button>
+        )}
       </div>
+      <StarshipComparison
+        starships={selectedStarships}
+        isOpen={isComparisonOpen}
+        onClose={() => setIsComparisonOpen(false)}
+      />
     </div>
   );
 }
