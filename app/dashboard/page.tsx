@@ -27,9 +27,9 @@ export default function DashboardPage() {
   const [isComparisonOpen, setIsComparisonOpen] = useState(false);
   // Use our updated hook with debounced search + manual infinite scrolling
   const {
-    starships,        // combined array of starships from all pages
-    fetchNextPage,    // function to load next page
-    hasNextPage,      // boolean indicating if more pages exist
+    starships,        
+    fetchNextPage,    
+    hasNextPage,      
     isLoading,
     isError,
   } = useStarships(searchTerm);
@@ -55,22 +55,15 @@ export default function DashboardPage() {
   // Toggle starship selection (up to 3)
   const handleSelectStarship = (starship: Starship) => {
     setSelectedStarships((current) => {
-      // If already selected, remove it
       if (current.some((s) => s.url === starship.url)) {
         return current.filter((s) => s.url !== starship.url);
       }
-      // If we have space, add it
       if (current.length < 3) {
         return [...current, starship];
       }
-      // Otherwise, no change
       return current;
     });
   };
-
-  // Handle loading/error states
-  // if (isLoading) return <div className="p-4">Loading starships...</div>;
-  // if (isError) return <div className="p-4 text-red-500">Failed to fetch starships!</div>;
 
   return (
     <div className="p-4">
@@ -105,12 +98,6 @@ export default function DashboardPage() {
           />
 
           {hasNextPage && (
-            // <button
-            //   onClick={fetchNextPage}
-            //   className="mt-4 px-4 py-2 border rounded"
-            // >
-            //   Load More
-            // </button>
             <LoadingTrigger
               onTrigger={fetchNextPage} 
               enabled={!isLoading && hasNextPage} 

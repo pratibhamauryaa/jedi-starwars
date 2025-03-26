@@ -41,61 +41,48 @@ async function fetchStarships(page: number, search: string) {
 
 
 
-  export function useStarships(searchTerm: string) {
-    const debouncedSearch = useDebounce(searchTerm, 500);
-    const [page, setPage] = useState(1);
-    const [starships, setStarships] = useState<SWAPIStarship[]>([]);
-  
-    const { data, status, refetch, isLoading, isError } = useQuery({
-      queryKey: ['starships', page, debouncedSearch],
-      queryFn: () => fetchStarships(page, debouncedSearch),
-      staleTime: 60000, // Cache data for 1 minute
-      keepPreviousData: true,
-      enabled: true,
-    });
-  
-    // Move the data->state logic to an effect so it only runs
-    // when [data, status, page] changes, preventing infinite loops.
-    useEffect(() => {
-      if (status === 'success' && data) {
-        setStarships(prev => {
-          // If it's page 1, reset the data
-          if (page === 1) return data.results;
-          // Otherwise append new data
-          return [...prev, ...data.results];
-        });
-      }
-    }, [data, status, page]);
-  
-  // Only reset when search term actually changes and is not empty
-  // useEffect(() => {
-  //   if (debouncedSearch !== searchTerm) {
-  //     setPage(1);
-  //     // Only clear results if we're actually searching for something
-  //     if (debouncedSearch !== '') {
-  //       setStarships([]);
-  //     }
-  //     refetch();
-  //   }
-  // }, [debouncedSearch, searchTerm, refetch]);
+export function useStarships(searchTerm: string) {
+  const debouncedSearch = useDebounce(searchTerm, 500);
+  const [page, setPage] = useState(1);
+  const [starships, setStarships] = useState<SWAPIStarship[]>([]);
+
+  const { data, status, refetch, isLoading, isError } = useQuery({
+    queryKey: ['starships', page, debouncedSearch],
+    queryFn: () => fetchStarships(page, debouncedSearch),
+    staleTime: 60000, // Cache data for 1 minute
+    keepPreviousData: true,
+    enabled: true,
+  });
+
+  useEffect(() => {
+    if (status === 'success' && data) {
+      setStarships(prev => {
+        // If it's page 1, reset the data
+        if (page === 1) return data.results;
+        // Otherwise append new data
+        return [...prev, ...data.results];
+      });
+    }
+  }, [data, status, page]);
+
   useEffect(() => {
     setPage(1);
     setStarships([]);
-}, [debouncedSearch]);
-  
-    const fetchNextPage = () => {
-      if (data?.next) {
-        setPage((prev) => prev + 1);
-      }
-    };
-  
-    return {
-      starships,
-      fetchNextPage,
-      hasNextPage: Boolean(data?.next),
-      isLoading: isLoading && page === 1, 
-      isLoadingMore: isLoading && page > 1,
-      isError,
-    };
-  }
-  
+  }, [debouncedSearch]);
+
+  const fetchNextPage = () => {
+    if (data?.next) {
+      setPage((prev) => prev + 1);
+    }
+  };
+
+  return {
+    starships,
+    fetchNextPage,
+    hasNextPage: Boolean(data?.next),
+    isLoading: isLoading && page === 1,
+    isLoadingMore: isLoading && page > 1,
+    isError,
+  };
+}
+
