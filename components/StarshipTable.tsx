@@ -7,21 +7,23 @@ interface StarshipTableProps {
   onSelectStarship: (starship: Starship) => void;
   selectedStarships: Starship[];
   isLoading: boolean;
+  isLoadingMore?: boolean;
 }
 
 export default function StarshipTable({
   data,
   onSelectStarship,
   selectedStarships,
-  isLoading
+  isLoading,
+  isLoadingMore
 }: StarshipTableProps) {
 
   if (isLoading) {
     return (
       <div className="w-full">
         <div className="animate-pulse space-y-4">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="h-12 bg-gray-200 rounded"></div>
+          {[1, 2, 3,4,5,6].map((i) => (
+            <div key={i} className="h-8 bg-gray-200 rounded"></div>
           ))}
         </div>
       </div>
@@ -94,6 +96,17 @@ export default function StarshipTable({
               </tr>
             );
           })}
+          {isLoadingMore && (
+            <tr>
+              <td colSpan={6} className="px-6 py-4 text-center">
+                <div className="flex justify-center items-center space-x-2">
+                  <div className="w-4 h-4 rounded-full bg-blue-500 animate-bounce" />
+                  <div className="w-4 h-4 rounded-full bg-blue-500 animate-bounce [animation-delay:-.3s]" />
+                  <div className="w-4 h-4 rounded-full bg-blue-500 animate-bounce [animation-delay:-.5s]" />
+                </div>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

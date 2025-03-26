@@ -58,13 +58,14 @@ async function fetchStarships(page: number, search: string) {
     // when [data, status, page] changes, preventing infinite loops.
     useEffect(() => {
       if (status === 'success' && data) {
-        if (page === 1) {
-          setStarships(data?.results);
-        } else {
-          setStarships((prev) => [...prev, ...data.results]);
-        }
+        setStarships(prev => {
+          // If it's page 1, reset the data
+          if (page === 1) return data.results;
+          // Otherwise append new data
+          return [...prev, ...data.results];
+        });
       }
-    }, [status, data, page]);
+    }, [data, status, page]);
   
   // Only reset when search term actually changes and is not empty
   // useEffect(() => {
@@ -79,6 +80,7 @@ async function fetchStarships(page: number, search: string) {
   // }, [debouncedSearch, searchTerm, refetch]);
   useEffect(() => {
     setPage(1);
+    setStarships([]);
 }, [debouncedSearch]);
   
     const fetchNextPage = () => {
@@ -91,7 +93,8 @@ async function fetchStarships(page: number, search: string) {
       starships,
       fetchNextPage,
       hasNextPage: Boolean(data?.next),
-      isLoading,
+      isLoading: isLoading && page === 1, 
+      isLoadingMore: isLoading && page > 1,
       isError,
     };
   }

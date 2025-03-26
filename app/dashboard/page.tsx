@@ -10,6 +10,7 @@ import StarshipTable from '@/components/StarshipTable';
 import { useStarships } from '@/hooks/useStarships';
 import { selectedStarshipsAtom, Starship } from '@/store/starships';
 import StarshipComparison from '@/components/StarshipComparison';
+import LoadingTrigger from '@/components/LoadingTrigger';
 
 
 export default function DashboardPage() {
@@ -104,12 +105,16 @@ export default function DashboardPage() {
           />
 
           {hasNextPage && (
-            <button
-              onClick={fetchNextPage}
-              className="mt-4 px-4 py-2 border rounded"
-            >
-              Load More
-            </button>
+            // <button
+            //   onClick={fetchNextPage}
+            //   className="mt-4 px-4 py-2 border rounded"
+            // >
+            //   Load More
+            // </button>
+            <LoadingTrigger
+              onTrigger={fetchNextPage} 
+              enabled={!isLoading && hasNextPage} 
+            />
           )}
         </>
       )}
