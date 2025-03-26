@@ -49,17 +49,14 @@ async function fetchStarships(page: number, search: string) {
     const { data, status, refetch, isLoading, isError } = useQuery({
       queryKey: ['starships', page, debouncedSearch],
       queryFn: () => fetchStarships(page, debouncedSearch),
+      staleTime: 60000, // Cache data for 1 minute
       keepPreviousData: true,
+      enabled: true,
     });
   
     // Move the data->state logic to an effect so it only runs
     // when [data, status, page] changes, preventing infinite loops.
     useEffect(() => {
-
-      console.log('data', data);
-      console.log('status', status);  
-      console.log('page', page);
-      
       if (status === 'success' && data) {
         if (page === 1) {
           setStarships(data?.results);
@@ -69,12 +66,20 @@ async function fetchStarships(page: number, search: string) {
       }
     }, [status, data, page]);
   
-    // Reset on searchTerm changes
-    useEffect(() => {
-      setPage(1);
-      setStarships([]);
-      refetch();
-    }, [debouncedSearch, refetch]);
+  // Only reset when search term actually changes and is not empty
+  // useEffect(() => {
+  //   if (debouncedSearch !== searchTerm) {
+  //     setPage(1);
+  //     // Only clear results if we're actually searching for something
+  //     if (debouncedSearch !== '') {
+  //       setStarships([]);
+  //     }
+  //     refetch();
+  //   }
+  // }, [debouncedSearch, searchTerm, refetch]);
+  useEffect(() => {
+    setPage(1);
+}, [debouncedSearch]);
   
     const fetchNextPage = () => {
       if (data?.next) {

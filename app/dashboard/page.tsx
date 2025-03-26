@@ -67,32 +67,38 @@ export default function DashboardPage() {
   };
 
   // Handle loading/error states
-  if (isLoading) return <div className="p-4">Loading starships...</div>;
-  if (isError) return <div className="p-4 text-red-500">Failed to fetch starships!</div>;
+  // if (isLoading) return <div className="p-4">Loading starships...</div>;
+  // if (isError) return <div className="p-4 text-red-500">Failed to fetch starships!</div>;
 
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Star Wars Fleet Dashboard</h1>
       <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-    <SearchBar onSearch={setSearchTerm} />
+        <SearchBar onSearch={setSearchTerm} />
+        <Filters filters={filters} setFilters={setFilters} />
+      </div>
 
-    <Filters filters={filters} setFilters={setFilters} />
-  </div>
+      {/* Show loading and error states within the table section */}
+      {isError ? (
+        <div className="p-4 text-red-500">Failed to fetch starships!</div>
+      ) : (
+        <>
+          <StarshipTable
+            data={filteredStarships}
+            onSelectStarship={handleSelectStarship}
+            selectedStarships={selectedStarships}
+            isLoading={isLoading}
+          />
 
-      <StarshipTable
-        data={filteredStarships}
-        onSelectStarship={handleSelectStarship}
-        selectedStarships={selectedStarships}
-      />
-
-    
-      {hasNextPage && (
-        <button
-          onClick={fetchNextPage}
-          className="mt-4 px-4 py-2 border rounded"
-        >
-          Load More
-        </button>
+          {hasNextPage && (
+            <button
+              onClick={fetchNextPage}
+              className="mt-4 px-4 py-2 border rounded"
+            >
+              Load More
+            </button>
+          )}
+        </>
       )}
 
       {/* Currently selected starships */}

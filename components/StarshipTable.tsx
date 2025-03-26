@@ -6,13 +6,27 @@ interface StarshipTableProps {
   data: Starship[];
   onSelectStarship: (starship: Starship) => void;
   selectedStarships: Starship[];
+  isLoading: boolean;
 }
 
 export default function StarshipTable({
   data,
   onSelectStarship,
   selectedStarships,
+  isLoading
 }: StarshipTableProps) {
+
+  if (isLoading) {
+    return (
+      <div className="w-full">
+        <div className="animate-pulse space-y-4">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-12 bg-gray-200 rounded"></div>
+          ))}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="p-4 overflow-x-auto border border-gray-200 dark:border-gray-700 shadow-sm sm:rounded-lg">
      <div className='text-2xl font-bold mb-4 color:blue-500'>
