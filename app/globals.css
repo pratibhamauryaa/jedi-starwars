@@ -14,9 +14,7 @@
   Replace these URLs with your own starfield images in /public/images. 
   This example has 3 distinct star layers for a subtle parallax effect.
 */
-.stars,
-.stars2,
-.stars3 {
+.stars{
   position: fixed;
   top: 0;
   left: 0;
@@ -33,23 +31,12 @@
   animation: animateStars 120s linear infinite;
 }
 
-.stars2 {
-  background-image: url('/images/stars-layer2.png');
-  animation: animateStars 90s linear infinite;
-  opacity: 0.6;
-}
 
-.stars3 {
-  background-image: url('/images/stars-layer3.png');
-  animation: animateStars 60s linear infinite;
-  opacity: 0.3;
-}
-
-@keyframes animateStars {
+/* @keyframes animateStars {
   0% {
     transform: translateY(0);
   }
   100% {
     transform: translateY(-2000px);
   }
-}
+} */

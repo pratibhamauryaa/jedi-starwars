@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 export default function Page() {
@@ -16,12 +17,21 @@ export default function Page() {
 
       {/* Foreground content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
-        <h1 className="mb-8 text-6xl font-bold tracking-wider text-yellow-400 animate-pulse">
+        {/* <h1 className="mb-8 text-6xl font-bold tracking-wider text-yellow-400 animate-pulse">
           STAR WARS
-        </h1>
+        </h1> */}
+        <Image
+        src="/logo/pngwing.com.png"
+        alt="Star Wars"
+        width={600}
+        height={200}
+        className='mb-8'
+        >
+          
+        </Image>
         <button
-          className="rounded-md border border-yellow-400 px-6 py-3 text-xl text-yellow-400 transition-colors 
-                     hover:bg-yellow-400/10 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="rounded-md border border-yellow-400 px-6 py-3 text-xl text-black-400 transition-colors 
+                     hover:bg-yellow-400/10 focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-yellow-400/15"
           onClick={() => router.push('/dashboard')}
         >
           Explore Starships

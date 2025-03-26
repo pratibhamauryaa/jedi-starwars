@@ -84,6 +84,18 @@ export default function DashboardPage() {
         <div className="p-4 text-red-500">Failed to fetch starships!</div>
       ) : (
         <>
+         {/* Currently selected starships */}
+      <div className="mt-4 flex items-center justify-between mb-4">
+        <p>Selected Starships ({selectedStarships.length}):</p>
+        {selectedStarships.length > 1 && (
+          <button
+            onClick={() => setIsComparisonOpen(true)}
+            className="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-300 transition-colors"
+          >
+            Compare Selected ({selectedStarships.length})
+          </button>
+        )}
+      </div>
           <StarshipTable
             data={filteredStarships}
             onSelectStarship={handleSelectStarship}
@@ -101,19 +113,6 @@ export default function DashboardPage() {
           )}
         </>
       )}
-
-      {/* Currently selected starships */}
-      <div className="mt-4">
-        <p>Selected Starships ({selectedStarships.length}):</p>
-        {selectedStarships.length > 0 && (
-          <button
-            onClick={() => setIsComparisonOpen(true)}
-            className="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-300 transition-colors"
-          >
-            Compare Selected ({selectedStarships.length})
-          </button>
-        )}
-      </div>
       <StarshipComparison
         starships={selectedStarships}
         isOpen={isComparisonOpen}
