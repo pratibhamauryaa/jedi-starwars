@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ⭐ Star Wars Fleet Dashboard
 
-## Getting Started
+A sleek, interactive dashboard built with **Next.js** that allows users to explore, filter, and compare starships from the Star Wars universe.
 
-First, run the development server:
+---
+
+## 🚀 Features
+
+### 🔍 Real-time Starship Search
+- Live search with debounced inputs for optimal performance
+- Instant filtering of starships by name
+
+### 🧪 Advanced Filtering System
+- Filter by **Crew Size**: `1-5`, `6-50`, `50+`
+- Filter by **Hyperdrive Rating**: `<1.0`, `1.0-2.0`, `>2.0`
+- Combine filters for precision
+
+### 🔄 Infinite Scroll
+- Automatically loads more starships as you scroll
+- Smooth UX with skeleton loading placeholders
+- Powered by the Intersection Observer API
+
+### ⚖️ Starship Comparison
+- Select up to **3 starships**
+- View side-by-side comparison in a modal
+- Compare core attributes like name, model, manufacturer, etc.
+
+### 📱 Responsive Design
+- Mobile-friendly layout
+- Clean, adaptive tables on all screen sizes
+- Fully optimized for modern browsers
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 13.5.10
+- **Language:** TypeScript
+- **Styling:** TailwindCSS + shadcn/ui
+- **State Management:**
+  - `Jotai` for global state (e.g., selected starships)
+  - `@tanstack/react-query` for data fetching and caching
+- **API Integration:**
+  - [SWAPI](https://swapi.dev/) (Star Wars API)
+  - `Axios` for HTTP requests
+
+---
+
+## ⚙️ Getting Started
+
+1. Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2.Run development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash 
+npm run dev 
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2.Build for production:
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash 
+npm run build
+```
