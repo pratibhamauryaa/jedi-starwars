@@ -31,7 +31,7 @@ interface SWAPIResponse {
 
 // Single page fetch
 async function fetchStarships(page: number, search: string) {
-  let url = `https://swapi.dev/api/starships/?page=${page}`;
+  let url = `https://www.swapi.tech/api/starships/?page=${page}`;
   if (search) {
     url += `&search=${search}`;
   }
