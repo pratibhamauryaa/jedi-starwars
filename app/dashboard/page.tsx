@@ -35,7 +35,7 @@ export default function DashboardPage() {
   } = useStarships(searchTerm);
 
   // Apply client-side filters (hyperdrive & crew) to the combined results
-  const filteredStarships = starships.filter((starship) => {
+  const filteredStarships = starships?.filter((starship) => {
     const numericCrew = parseInt(starship.crew.replace(/[^0-9]/g, ''), 10) || 0;
     const numericHyperdrive = parseFloat(starship.hyperdrive_rating) || 0;
 
@@ -91,7 +91,7 @@ export default function DashboardPage() {
         )}
       </div>
           <StarshipTable
-            data={filteredStarships}
+            data={filteredStarships || starships}
             onSelectStarship={handleSelectStarship}
             selectedStarships={selectedStarships}
             isLoading={isLoading}
