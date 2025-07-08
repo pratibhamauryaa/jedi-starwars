@@ -18,7 +18,7 @@ export default function StarshipTable({
   isLoadingMore
 }: StarshipTableProps) {
 
-  if (isLoading) {
+  if (isLoading || data === null) {
     return (
       <div className="w-full">
         <div className="animate-pulse space-y-4">
@@ -29,6 +29,7 @@ export default function StarshipTable({
       </div>
     );
   }
+  console.log(data, 'this is starships data')
   return (
     <div className="p-4 overflow-x-auto border border-gray-200 dark:border-gray-700 shadow-sm sm:rounded-lg">
      <div className='text-2xl font-bold mb-4 color:blue-500'>
@@ -59,7 +60,7 @@ export default function StarshipTable({
           </tr>
         </thead>
         <tbody>
-          {data.map((ship, idx) => {
+          {data?.map((ship, idx) => {
             const isSelected = selectedStarships.some((s) => s.url === ship.url);
           
             const rowClasses = `
