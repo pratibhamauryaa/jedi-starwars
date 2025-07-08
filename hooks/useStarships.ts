@@ -58,9 +58,9 @@ export function useStarships(searchTerm: string) {
     if (status === 'success' && data) {
       setStarships(prev => {
         // If it's page 1, reset the data
-        if (page === 1) return data.results;
+        if (page === 1) return data;
         // Otherwise append new data
-        return [...prev, ...data.results];
+        return [...prev, ...data];
       });
     }
   }, [data, status, page]);
@@ -75,6 +75,7 @@ export function useStarships(searchTerm: string) {
       setPage((prev) => prev + 1);
     }
   };
+
 
   return {
     starships,
